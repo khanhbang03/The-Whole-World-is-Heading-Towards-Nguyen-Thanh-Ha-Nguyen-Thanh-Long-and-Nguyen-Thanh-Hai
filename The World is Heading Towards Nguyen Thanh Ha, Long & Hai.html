@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The World is Heading Towards Nguyen Thanh Ha, Long & Hai</title>
+
+  <!-- Leaflet Map Library -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #007bff, #00c3ff);
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-top: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    #map {
+      height: 70vh;
+      width: 90%;
+      margin: 20px auto;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .counter {
+      font-size: 1.5em;
+      margin: 10px;
+      font-weight: bold;
+    }
+
+    .flags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .flags img {
+      width: 40px;
+      height: 30px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+
+    .flags img:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌍 The Whole World is Heading Towards Nguyen Thanh Ha, Nguyen Thanh Long, and Nguyen Thanh Hai 🌏</h1>
+  <p class="counter">🌐 Total Participants: <span id="count">0</span></p>
+
+  <div class="flags" id="flag-container"></div>
+  <div id="map"></div>
+
+  <script>
+    const map = L.map('map').setView([20, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const countries = [
+      { name: "Australia", lat: -25.2744, lon: 133.7751, flag: "https://flagcdn.com/w40/au.png" },
+      { name: "Vietnam", lat: 14.0583, lon: 108.2772, flag: "https://flagcdn.com/w40/vn.png" },
+      { name: "France", lat: 46.6034, lon: 1.8883, flag: "https://flagcdn.com/w40/fr.png" },
+      { name: "Japan", lat: 36.2048, lon: 138.2529, flag: "https://flagcdn.com/w40/jp.png" },
+      { name: "United States", lat: 37.0902, lon: -95.7129, flag: "https://flagcdn.com/w40/us.png" },
+      { name: "India", lat: 20.5937, lon: 78.9629, flag: "https://flagcdn.com/w40/in.png" },
+      { name: "Brazil", lat: -14.235, lon: -51.9253, flag: "https://flagcdn.com/w40/br.png" },
+      { name: "Germany", lat: 51.1657, lon: 10.4515, flag: "https://flagcdn.com/w40/de.png" },
+      { name: "Canada", lat: 56.1304, lon: -106.3468, flag: "https://flagcdn.com/w40/ca.png" },
+      { name: "South Korea", lat: 35.9078, lon: 127.7669, flag: "https://flagcdn.com/w40/kr.png" }
+    ];
+
+    const flagContainer = document.getElementById("flag-container");
+    let count = 0;
+
+    countries.forEach((c, i) => {
+      setTimeout(() => {
+        L.marker([c.lat, c.lon]).addTo(map)
+          .bindPopup(`<b>${c.name}</b><br>Joining Nguyen Thanh Ha, Long & Hai 🌟`);
+
+        const img = document.createElement("img");
+        img.src = c.flag;
+        img.alt = c.name;
+        flagContainer.appendChild(img);
+
+        count++;
+        document.getElementById("count").textContent = count;
+      }, i * 800);
+    });
+  </script>
+
+</body>
+</html>
